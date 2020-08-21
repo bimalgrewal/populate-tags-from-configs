@@ -36,7 +36,7 @@ def read_json_template(template_file_name):
         sys.exit()
 
 
-# Merge the config and the template, and output the auto.tfvars.json
+# Merge the config and the template, and output the tfvars.json
 def merge_config_template(empty_template, parsed_config, output_file_name):
     tags = {}
     for key, value in empty_template["tags"].items():
@@ -46,11 +46,11 @@ def merge_config_template(empty_template, parsed_config, output_file_name):
             return
         tags[key] = value
 
-    output = {'tags': tags}
+    output = json.dumps({'tags': tags}, sort_keys=True, indent=4)
     with open(output_file_name, 'w') as file:
-        file.write(json.dumps(output))
+        file.write(output)
 
-    print("DONE.... %s CREATED." %output_file_name)
+    print("DONE.... %s CREATED." % output_file_name)
 
 
 def main():
